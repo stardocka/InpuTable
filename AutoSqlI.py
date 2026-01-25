@@ -20,7 +20,7 @@ def get_form_fields(url):
     r = requests.get(url, cookies=COOKIES)
     soup = BeautifulSoup(r.text, "html.parser")
     inputs = soup.find_all("input")
-    fields = [i.get("name") for i in inputs if i.get("name")]
+    fields = [i.get("name") for i in inputs if i.get("name") and i.get("type") != "submit"]
     return fields
 
 def test_payload(field, payload):
