@@ -7,9 +7,9 @@ import subprocess
 
 # ================== CONFIGURATION ==================
 
-URL = "http://192.168.40.2/DVWA/vulnerabilities/sqli/"
+URL = ""
 COOKIES = {
-    "PHPSESSID": "TON_COOKIE_ICI",
+    "PHPSESSID": "",
     "security": "low"
 }
 
